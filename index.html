@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moment Keeper - Dashboard</title>
+    <style>
+        /* Your existing styles... */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #a8e063, #56ab2f, #00c6fb, #005bea);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .option {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .option h2 {
+            margin-top: 0;
+            font-size: 1.2em;
+            color: #005bea;
+        }
+        .option p {
+            margin-bottom: 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .option-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .hidden {
+            display: none;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #005bea;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #005bea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #0046a3;
+        }
+        /* Event Directory Styles */
+        #event-directory {
+            display: none;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #event-directory h1 {
+            text-align: center;
+            color: #005bea;
+        }
+        #event-form {
+            display: flex;
+            flex-direction: column;
+        }
+        #event-form input, #event-form textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #event-form button {
+            padding: 10px;
+            background-color: #005bea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #event-form button:hover {
+            background-color: #0046a3;
+        }
+        .event {
+            background-color: #e9f5ff;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        .event h3 {
+            margin: 0 0 5px 0;
+            color: #005bea;
+        }
+        .event p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #333;
+        }
+        /* Gallery Styles */
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        #gallery img {
+            max-width: 200px;
+            max-height: 150px;
+            border: 2px solid #333;
+        }
+        #gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        #gallery-modal .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .modal-content input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Moment Keeper</div>
+        <h1>Dashboard</h1>
+        
+        <div id="dashboard" class="options hidden">
+            <div class="option" onclick="redirectToGuide()">
+                <div class="option-icon">⏱️</div>
+                <h2>Guide Manual</h2>
+                <p>Learn How to use Momment Keeper Effectively</p>
+            </div>
+            
+            <script>
+                function redirectToGuide() {
+                    // Redirect to the productivity.html page
+                    window.location.href = 'test.html';
+                }
+            </script>
+            
+            <div class="option" onclick="redirectToEmotion()">
+                <div class="option-icon">⏱️</div>
+                <h2>Emotion Worriers</h2>
+                <p>Analyze your Emotions and Stay Healthy</p>
+            </div>
+            
+            <script>
+                function redirectToEmotion() {
+                    // Redirect to the productivity.html page
+                    window.location.href = 'emotionanalyzer.html';
+                }
+            </script>
+            
+            <div class="option" onclick="redirectToProductivity()">
+                <div class="option-icon">⏱️</div>
+                <h2>Time Spent</h2>
+                <p>Track and analyze your time usage</p>
+            </div>
+            
+            <script>
+                function redirectToProductivity() {
+                    // Redirect to the productivity.html page
+                    window.location.href = 'productivity.html';
+                }
+            </script>
+            
+            <div class="option" onclick="showGalleryModal()">
+                <div class="option-icon">🖼️</div>
+                <h2>Image Gallery</h2>
+                <p>Upload and view your images</p>
+            </div>
+            <div class="option" onclick="showEventDirectory()">
+                <div class="option-icon">📅</div>
+                <h2>Event Directory</h2>
+                <p>Browse and manage your events</p>
+            </div>
+        </div>
+        
+        <div id="auth-container">
+            <div id="register-form" class="form-container">
+                <h2>Register</h2>
+                <input type="email" id="reg-email" placeholder="Email" required>
+                <input type="password" id="reg-password" placeholder="Password" required>
+                <button onclick="register()">Register</button>
+                <p id="reg-message" style="color:red;"></p>
+                <p style="text-align: center;">
+                    Already have an account? 
+                    <a href="javascript:void(0)" onclick="toggleForms()" style="color: #005bea; text-decoration: underline;">Log in</a>
+                </p>
+            </div>
+            
+            <div id="login-form" class="form-container hidden">
+                <h2>Login</h2>
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button onclick="login()">Login</button>
+                <p id="login-message" style="color:red;"></p>
+                <p style="text-align: center;">
+                    Don't have an account? 
+                    <a href="javascript:void(0)" onclick="toggleForms()" style="color: #005bea; text-decoration: underline;">Register here</a>
+                </p>
+            </div>
+        </div>
+        
+        <script>
+            let userData = {}; // Store user data
+        
+            function register() {
+                const email = document.getElementById('reg-email').value;
+                const password = document.getElementById('reg-password').value;
+        
+                // Validate email to only allow Gmail addresses
+                if (!email.endsWith('@gmail.com')) {
+                    document.getElementById('reg-message').innerText = "Please use a Gmail address.";
+                    return;
+                }
+        
+                if (email && password) {
+                    userData = { email, password };
+                    document.getElementById('reg-message').innerText = "Registration successful! You can now log in.";
+                    document.getElementById('reg-email').value = '';
+                    document.getElementById('reg-password').value = '';
+                    toggleForms();
+                } else {
+                    document.getElementById('reg-message').innerText = "Please fill in all fields.";
+                }
+            }
+        
+            function login() {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+        
+                if (email === userData.email && password === userData.password) {
+                    document.getElementById('auth-container').style.display = 'none';
+                    document.getElementById('dashboard').classList.remove('hidden'); // Assuming you have a dashboard to show
+                } else {
+                    document.getElementById('login-message').innerText = "Invalid email or password.";
+                }
+            }
+        
+            function toggleForms() {
+                const loginForm = document.getElementById('login-form');
+                const registerForm = document.getElementById('register-form');
+                loginForm.classList.toggle('hidden');
+                registerForm.classList.toggle('hidden');
+            }
+        </script>
+
+        <!-- Event Directory -->
+        <div id="event-directory">
+            <h1>Event Directory</h1>
+
+            <form id="event-form">
+                <input type="text" id="event-title" placeholder="Event Title" required>
+                <textarea id="event-description" rows="3" placeholder="Event Description" required></textarea>
+                <button type="button" onclick="addEvent()">Add Event</button>
+            </form>
+
+            <div id="event-list"></div>
+        </div>
+
+        <!-- Image Gallery Modal -->
+        <div id="gallery-modal" class="hidden" onclick="hideGalleryModal()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <h2>Image Gallery</h2>
+                <div class="form-group">
+                    <label for="albumName">Enter Album Name:</label>
+                    <input type="text" id="albumName" placeholder="Album Name">
+                </div>
+                <div class="form-group">
+                    <label for="albumDate">Select Album Date:</label>
+                    <input type="date" id="albumDate">
+                </div>
+                <div class="form-group">
+                    <label for="imageInput">Upload Images:</label>
+                    <input type="file" id="imageInput" accept="image/*" multiple>
+                </div>
+                <button onclick="saveImages()">Save Images to Album</button>
+
+                <div class="form-group">
+                    <label for="searchDate">Enter Date to Retrieve Images:</label>
+                    <input type="date" id="searchDate">
+                </div>
+                <button onclick="retrieveImages()">Retrieve Images</button>
+
+                <div id="gallery"></div>
+                <button onclick="hideGalleryModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let user = {}; // Store user data
+        let events = []; // Store events
+        let albums = JSON.parse(localStorage.getItem('albums')) || []; // Store albums
+
+        function register() {
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+
+            if (email && password) {
+                user = { email, password };
+                document.getElementById('reg-message').innerText = "Registration successful! You can now log in.";
+                document.getElementById('reg-email').value = '';
+                document.getElementById('reg-password').value = '';
+                toggleForms();
+            } else {
+                document.getElementById('reg-message').innerText = "Please fill in all fields.";
+            }
+        }
+
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (email === user.email && password === user.password) {
+                document.getElementById('auth-container').style.display = 'none';
+                document.getElementById('dashboard').classList.remove('hidden');
+            } else {
+                document.getElementById('login-message').innerText = "Invalid email or password.";
+            }
+        }
+
+        function toggleForms() {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            loginForm.classList.toggle('hidden');
+            registerForm.classList.toggle('hidden');
+        }
+
+        function showEventDirectory() {
+            document.getElementById('event-directory').style.display = 'block';
+        }
+
+        function addEvent() {
+            const title = document.getElementById('event-title').value;
+            const description = document.getElementById('event-description').value;
+
+            if (title && description) {
+                const newEvent = { title, description };
+                events.push(newEvent);
+                renderEvents();
+                document.getElementById('event-form').reset();
+            } else {
+                alert('Please fill out both fields');
+            }
+        }
+
+        function renderEvents() {
+            const eventList = document.getElementById('event-list');
+            eventList.innerHTML = ''; // Clear the list
+
+            events.forEach((event, index) => {
+                const eventElement = document.createElement('div');
+                eventElement.className = 'event';
+                eventElement.innerHTML = `
+                    <h3>${event.title}</h3>
+                    <p>${event.description}</p>
+                    <button onclick="deleteEvent(${index})">Delete</button>
+                `;
+                eventList.appendChild(eventElement);
+            });
+        }
+
+        function deleteEvent(index) {
+            events.splice(index, 1); // Remove event from the array
+            renderEvents(); // Re-render the event list
+        }
+
+        function showGalleryModal() {
+            document.getElementById('gallery-modal').style.display = 'flex';
+        }
+
+        function hideGalleryModal() {
+            document.getElementById('gallery-modal').style.display = 'none';
+            document.getElementById("gallery").innerHTML = ''; // Clear the gallery
+        }
+
+        function saveImages() {
+            const albumName = document.getElementById("albumName").value;
+            const albumDate = document.getElementById("albumDate").value;
+            const imageInput = document.getElementById("imageInput");
+
+            if (!albumName || !albumDate || !imageInput.files.length) {
+                alert("Please fill all fields and select at least one image.");
+                return;
+            }
+
+            // Loop over the selected files
+            Array.from(imageInput.files).forEach(file => {
+                const reader = new FileReader();
+                
+                reader.onload = function (event) {
+                    const imageData = event.target.result;
+                    const imageInfo = {
+                        name: albumName,
+                        date: albumDate,
+                        image: imageData
+                    };
+
+                    // Store each image in the album
+                    albums.push(imageInfo);
+                    localStorage.setItem('albums', JSON.stringify(albums));
+                };
+
+                reader.readAsDataURL(file); // Read each file as Base64 string
+            });
+
+            alert("Images saved successfully.");
+            document.getElementById("albumName").value = '';
+            document.getElementById("albumDate").value = '';
+            document.getElementById("imageInput").value = '';
+        }
+
+        function retrieveImages() {
+            const searchDate = document.getElementById("searchDate").value;
+            if (!searchDate) {
+                alert("Please enter a date.");
+                return;
+            }
+
+            const gallery = document.getElementById("gallery");
+            gallery.innerHTML = ''; // Clear gallery
+
+            // Filter albums by date
+            const filteredImages = albums.filter(album => album.date === searchDate);
+
+            if (filteredImages.length === 0) {
+                alert("No images found for this date.");
+                return;
+            }
+
+            filteredImages.forEach(album => {
+                const img = document.createElement("img");
+                img.src = album.image;
+                img.alt = album.name;
+                gallery.appendChild(img);
+            });
+        }
+    </script>
+</body>
+</html>
