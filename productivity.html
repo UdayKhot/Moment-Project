@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Productivity Analyzer</title>
+    <title>Productivity Analyzer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes spin {
@@ -56,21 +56,37 @@
             { name: "TV", icon: "📺", color: "#8B4513", percentage: 0 },
             { name: "Gaming", icon: "🎮", color: "#FF6347", percentage: 0 },
             { name: "Productive", icon: "⚡", color: "#00CED1", percentage: 0 },
+            { name: "Reading", icon: "📖", color: "#8B008B", percentage: 0 },
+            { name: "Meditation", icon: "🧘", color: "#9932CC", percentage: 0 },
+            { name: "Socializing", icon: "🗣️", color: "#FF8C00", percentage: 0 },
+            { name: "Hobbies", icon: "🎨", color: "#20B2AA", percentage: 0 },
+            { name: "Commuting", icon: "🚗", color: "#708090", percentage: 0 },
+            { name: "Writing", icon: "✍️", color: "#4682B4", percentage: 0 },
+            { name: "Music", icon: "🎵", color: "#DA70D6", percentage: 0 },
+            { name: "Outdoors", icon: "🌳", color: "#228B22", percentage: 0 },
+            { name: "Gardening", icon: "🌱", color: "#228B22", percentage: 0 },
+            { name: "Photography", icon: "📷", color: "#4B0082", percentage: 0 },
+            { name: "Volunteering", icon: "🤲", color: "#FF4500", percentage: 0 },
+            { name: "Language Learning", icon: "🗣️", color: "#1E90FF", percentage: 0 },
+            { name: "Coding", icon: "💻", color: "#008080", percentage: 0 },
+            { name: "Podcasting", icon: "🎙️", color: "#8B008B", percentage: 0 },
+            { name: "Meditation", icon: "🧘", color: "#9932CC", percentage: 0 },
+            { name: "Networking", icon: "🤝", color: "#DAA520", percentage: 0 }
         ];
 
         const activityKeywords = {
-            Work: ["worked", "meeting", "project", "deadline", "client", "presentation", "report", "email", "conference", "brainstorm", "collaborate", "task", "office", "business", "strategy"],
-            Study: ["studied", "research", "homework", "assignment", "exam", "lecture", "notes", "textbook", "quiz", "thesis", "dissertation", "library", "academic", "learning", "revision"],
-            Exercise: ["exercised", "gym", "workout", "run", "jog", "yoga", "pilates", "swim", "bike", "hike", "sport", "fitness", "training", "stretching", "cardio"],
-            Relaxation: ["relaxed", "meditated", "nap", "break", "rest", "unwind", "chill", "leisure", "hobby", "self-care", "massage", "spa", "mindfulness", "breathe", "decompress"],
-            "Social Media": ["scrolled", "instagram", "facebook", "twitter", "tiktok", "snapchat", "linkedin", "pinterest", "reddit", "youtube", "whatsapp", "messenger", "dm", "post", "story"],
-            Learning: ["learned", "course", "tutorial", "skill", "workshop", "webinar", "seminar", "class", "lecture", "training", "education", "development", "growth", "knowledge", "mastery"],
-            Cooking: ["cooked", "baked", "prepared", "meal", "recipe", "kitchen", "ingredients", "dish", "cuisine", "chef", "gourmet", "culinary", "food", "nutrition", "menu"],
-            Chores: ["cleaned", "laundry", "dishes", "organize", "tidy", "vacuum", "mop", "dust", "declutter", "maintenance", "repair", "errands", "grocery", "shopping", "household"],
-            Sleep: ["slept", "nap", "bedtime", "woke up", "rest", "snooze", "doze", "siesta", "hibernate", "recharge", "dream", "snore", "pillow", "blanket", "pajamas"],
-            TV: ["watched", "netflix", "series", "movie", "show", "binge", "stream", "episode", "documentary", "film", "television", "cable", "broadcast", "channel", "program"],
-            Gaming: ["played", "game", "console", "steam", "online", "multiplayer", "rpg", "fps", "mmorpg", "esports", "twitch", "stream", "achievement", "level up", "quest"],
-            Productive: ["completed", "achieved", "finished", "accomplished", "progress", "efficiency", "effective", "output", "results", "success", "goal", "milestone", "performance", "optimize", "streamline"],
+            Work: ["worked", "meeting", "project", "deadline", "client", "presentation", "report", "email", "conference", "brainstorm", "collaborate", "task", "office", "business", "strategy", "proposal", "budget", "analysis", "planning", "teamwork", "negotiation", "sales", "marketing", "management", "leadership"],
+            Study: ["studied", "research", "homework", "assignment", "exam", "lecture", "notes", "textbook", "quiz", "thesis", "dissertation", "library", "academic", "learning", "revision", "memorize", "practice", "review", "understand", "comprehend", "analyze", "solve", "calculate", "write", "read"],
+            Exercise: ["exercised", "gym", "workout", "run", "jog", "yoga", "pilates", "swim", "bike", "hike", "sport", "fitness", "training", "stretching", "cardio", "weightlifting", "aerobics", "crossfit", "martial arts", "dance", "tennis", "basketball", "football", "soccer", "volleyball"],
+            Relaxation: ["relaxed", "meditated", "nap", "break", "rest", "unwind", "chill", "leisure", "hobby", "self-care", "massage", "spa", "mindfulness", "breathe", "decompress", "vacation", "holiday", "weekend", "day off", "staycation", "retreat", "meditation", "yoga", "reading for pleasure", "listening to music"],
+            "Social Media": ["scrolled", "instagram", "facebook", "twitter", "tiktok", "snapchat", "linkedin", "pinterest", "reddit", "youtube", "whatsapp", "messenger", "dm", "post", "story", "like", "comment", "share", "follow", "unfollow", "tweet", "retweet", "hashtag", "trending", "viral"],
+            Learning: ["learned", "course", "tutorial", "skill", "workshop", "webinar", "seminar", "class", "lecture", "training", "education", "development", "growth", "knowledge", "mastery", "online course", "certification", "degree", "diploma", "self-study", "language learning", "coding", "art class", "music lesson", "cooking class"],
+            Cooking: ["cooked", "baked", "prepared", "meal", "recipe", "kitchen", "ingredients", "dish", "cuisine", "chef", "gourmet", "culinary", "food", "nutrition", "menu", "appetizer", "main course", "dessert", "snack", "breakfast", "lunch", "dinner", "meal prep", "grocery shopping", "food planning"],
+            Chores: ["cleaned", "laundry", "dishes", "organize", "tidy", "vacuum", "mop", "dust", "declutter", "maintenance", "repair", "errands", "grocery", "shopping", "household", "gardening", "yard work", "home improvement", "fix", "wash", "iron", "fold", "sweep", "scrub", "polish"],
+            Sleep: ["slept", "nap", "bedtime", "woke up", "rest", "snooze", "doze", "siesta", "hibernate", "recharge", "dream", "snore", "pillow", "blanket", "pajamas", "nighttime routine", "sleep schedule", "insomnia", "sleep quality", "sleep tracking", "alarm", "wake up", "morning routine", "bedtime story", "sleep meditation"],
+            TV: ["watched", "netflix", "series", "movie", "show", "binge", "stream", "episode", "documentary", "film", "television", "cable", "broadcast", "channel", "program", "sitcom", "drama", "comedy", "action", "sci-fi", "horror", "thriller", "romance", "anime", "cartoon"],
+            Gaming: ["played", "game", "console", "steam", "online", "multiplayer", "rpg", "fps", "mmorpg", "esports", "twitch", "stream", "achievement", "level up", "quest", "strategy", "puzzle", "mobile game", "board game", "card game", "video game", "gaming session", "gaming tournament", "game development", "game design"],
+            Productive: ["completed", "achieved", "finished", "accomplished", "progress", "efficiency", "effective", "output", "results", "success", "goal", "milestone", "performance", "optimize", "streamline", "time management", "prioritize", "organize", "plan", "execute", "implement", "improve", "innovate", "problem-solve", "decision-making"]
         };
 
         function analyzeActivities(text) {
@@ -141,7 +157,7 @@
                     activityCards.appendChild(card);
                 });
 
-                const productiveActivities = ["Work", "Study", "Exercise", "Learning", "Chores", "Productive"];
+                const productiveActivities = ["Work", "Study", "Exercise", "Learning", "Chores", "Productive", "Reading", "Writing", "Coding", "Language Learning", "Volunteering"];
                 const productivityScore = detectedActivities
                     .filter(activity => productiveActivities.includes(activity.name))
                     .reduce((sum, activity) => sum + activity.percentage, 0);
